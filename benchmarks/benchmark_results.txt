@@ -1,0 +1,60 @@
+﻿MSDS 431 - Assignment 7
+Concurrent Wikipedia Crawler
+Benchmark Results
+============================================================
+
+ENVIRONMENT
+Operating System: Windows
+Architecture: AMD64
+Processor: AMD Ryzen 7 5800X 8-Core Processor
+Go Version: 1.27.1
+Articles per iteration: 10
+Concurrent workers: 3
+
+BENCHMARK COMMAND
+go test -bench=BenchmarkScrape -benchmem -count=5 .
+
+------------------------------------------------------------
+RAW BENCHMARK RESULTS
+------------------------------------------------------------
+
+SEQUENTIAL EXTRACTION
+
+Trial 1: 457,007 ns/op | 398,888 B/op | 2,840 allocs/op
+Trial 2: 452,414 ns/op | 398,884 B/op | 2,840 allocs/op
+Trial 3: 456,002 ns/op | 398,884 B/op | 2,840 allocs/op
+Trial 4: 466,097 ns/op | 398,886 B/op | 2,840 allocs/op
+Trial 5: 453,219 ns/op | 398,884 B/op | 2,840 allocs/op
+
+CONCURRENT EXTRACTION
+
+Trial 1: 258,514 ns/op | 402,662 B/op | 2,851 allocs/op
+Trial 2: 263,128 ns/op | 402,614 B/op | 2,851 allocs/op
+Trial 3: 273,740 ns/op | 402,616 B/op | 2,851 allocs/op
+Trial 4: 277,450 ns/op | 402,614 B/op | 2,851 allocs/op
+Trial 5: 262,819 ns/op | 402,614 B/op | 2,851 allocs/op
+
+------------------------------------------------------------
+AVERAGE RESULTS
+------------------------------------------------------------
+
+Metric              Sequential       Concurrent
+Execution Time      456,948 ns/op    267,130 ns/op
+Memory Allocated    398,885 B/op     402,624 B/op
+Allocations         2,840 allocs     2,851 allocs
+
+------------------------------------------------------------
+PERFORMANCE COMPARISON
+------------------------------------------------------------
+
+Concurrent Speedup:          1.71x
+Execution Time Reduction:    41.5%
+Memory Increase:              0.94%
+Additional Allocations:      11 per operation
+
+NOTE
+Benchmarks use synthetic HTML documents to isolate article extraction
+performance. They do not measure network download performance.
+
+The benchmark test suite completed successfully.
+============================================================

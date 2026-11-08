@@ -2,7 +2,9 @@
 
 ## Project Overview
 
-This project implements a concurrent web crawler and web scraper in Go using the [Colly](https://github.com/gocolly/colly) framework.
+This project implements a concurrent web crawler and web scraper in Go using the&#x20;
+
+[Colly](https://github.com/gocolly/colly) framework.
 
 The application downloads and extracts text from ten Wikipedia articles related to robotics, artificial intelligence, intelligent agents, and automation. The extracted content is cleaned, structured, and exported into a JSON Lines (`.jl`) file.
 
@@ -20,23 +22,23 @@ The project demonstrates Go's concurrency features, including goroutines, channe
 
 ## Technologies Used
 
-| Technology | Purpose |
-|---|---|
-| Go | Primary programming language |
-| Colly | Concurrent web crawling |
-| goquery | HTML parsing and text extraction |
-| Goroutines | Concurrent article processing |
-| Channels | Distributing work between workers |
-| sync.WaitGroup | Coordinating concurrent workers |
-| sync.Mutex | Protecting shared crawler results |
-| encoding/json | JSON Lines serialization |
-| Go testing package | Unit tests and benchmarks |
-| httptest | Local HTTP testing |
+| Technology         | Purpose                           |
+| ------------------ | --------------------------------- |
+| Go                 | Primary programming language      |
+| Colly              | Concurrent web crawling           |
+| goquery            | HTML parsing and text extraction  |
+| Goroutines         | Concurrent article processing     |
+| Channels           | Distributing work between workers |
+| sync.WaitGroup     | Coordinating concurrent workers   |
+| sync.Mutex         | Protecting shared crawler results |
+| encoding/json      | JSON Lines serialization          |
+| Go testing package | Unit tests and benchmarks         |
+| httptest           | Local HTTP testing                |
 
 ## Project Structure
 
 ```text
-Assignment 7/
+MSDS-431-Assignment-7/
 │
 ├── crawler/
 │   ├── crawler.go
@@ -53,13 +55,15 @@ Assignment 7/
 │   └── wikipedia_articles.jl
 │
 ├── benchmarks/
+│   └── benchmark_results.txt
 │
 ├── main.go
 ├── main_test.go
 ├── go.mod
 ├── go.sum
 ├── README.md
-└── GENAI_CONVERSATION_LOG.md
+├── GENAI_CONVERSATION_LOG.md
+└── wikipedia-crawler.exe
 ```
 
 ## Application Architecture
@@ -112,16 +116,16 @@ Successful results are written to the output file in their original order.
 
 The application crawls the following ten Wikipedia articles:
 
-1. https://en.wikipedia.org/wiki/Robotics
-2. https://en.wikipedia.org/wiki/Robot
-3. https://en.wikipedia.org/wiki/Reinforcement_learning
-4. https://en.wikipedia.org/wiki/Robot_Operating_System
-5. https://en.wikipedia.org/wiki/Intelligent_agent
-6. https://en.wikipedia.org/wiki/Software_agent
-7. https://en.wikipedia.org/wiki/Robotic_process_automation
-8. https://en.wikipedia.org/wiki/Chatbot
-9. https://en.wikipedia.org/wiki/Applications_of_artificial_intelligence
-10. https://en.wikipedia.org/wiki/Android_(robot)
+1. [Robotics](https://en.wikipedia.org/wiki/Robotics)
+2. [Robot](https://en.wikipedia.org/wiki/Robot)
+3. [Reinforcement Learning](https://en.wikipedia.org/wiki/Reinforcement_learning)
+4. [Robot Operating System](https://en.wikipedia.org/wiki/Robot_Operating_System)
+5. [Intelligent Agent](https://en.wikipedia.org/wiki/Intelligent_agent)
+6. [Software Agent](https://en.wikipedia.org/wiki/Software_agent)
+7. [Robotic Process Automation](https://en.wikipedia.org/wiki/Robotic_process_automation)
+8. [Chatbot](https://en.wikipedia.org/wiki/Chatbot)
+9. [Applications of Artificial Intelligence](https://en.wikipedia.org/wiki/Applications_of_artificial_intelligence)
+10. [Android (robot)](https://en.wikipedia.org/wiki/Android_\(robot\))
 
 ## Installation and Execution
 
@@ -232,30 +236,32 @@ go test -bench=BenchmarkScrape -benchmem -count=5 .
 
 ### Benchmark Environment
 
-| Component | Specification |
-|---|---|
-| Operating System | Windows |
-| Architecture | AMD64 |
-| Processor | AMD Ryzen 7 5800X |
-| Go Version | 1.27.1 |
-| Articles per iteration | 10 |
-| Concurrent workers | 3 |
+| Component              | Specification                      |
+| ---------------------- | ---------------------------------- |
+| Operating System       | Windows                            |
+| Architecture           | AMD64                              |
+| Processor              | AMD Ryzen 7 5800X 8-Core Processor |
+| Go Version             | 1.27.1                             |
+| Articles per iteration | 10                                 |
+| Concurrent workers     | 3                                  |
 
 ### Benchmark Results
 
 Results below represent the average of five benchmark trials.
 
-| Metric | Sequential | Concurrent |
-|---|---:|---:|
-| Execution time | 460,298 ns/op | 255,586 ns/op |
-| Memory allocated | 398,885 B/op | 402,626 B/op |
-| Allocations | 2,840 | 2,851 |
+| Metric           |    Sequential |    Concurrent |
+| ---------------- | ------------: | ------------: |
+| Execution time   | 456,948 ns/op | 267,130 ns/op |
+| Memory allocated |  398,885 B/op |  402,624 B/op |
+| Allocations      |         2,840 |         2,851 |
+
+The raw results from all five benchmark trials are available in `benchmarks/benchmark_results.txt`.
 
 ### Performance Analysis
 
-Concurrent article extraction achieved approximately **1.80x the processing speed** of sequential extraction.
+Concurrent article extraction achieved approximately **1.71x the processing speed** of sequential extraction.
 
-This represents an approximately **44.5% reduction in execution time**.
+This represents an approximately **41.5% reduction in execution time**.
 
 The concurrent implementation used approximately 0.94% more memory and 11 additional allocations per benchmark iteration.
 
@@ -267,15 +273,15 @@ The benchmarks use synthetic HTML documents to isolate and compare extraction pe
 
 The application was successfully executed against all ten assigned Wikipedia URLs.
 
-| Metric | Result |
-|---|---:|
-| Target webpages | 10 |
-| Successfully downloaded | 10 |
-| Successfully scraped | 10 |
-| Crawl failures | 0 |
-| Scraping failures | 0 |
-| JSON Lines records | 10 |
-| Total execution time | 2.31 seconds |
+| Metric                  |       Result |
+| ----------------------- | -----------: |
+| Target webpages         |           10 |
+| Successfully downloaded |           10 |
+| Successfully scraped    |           10 |
+| Crawl failures          |            0 |
+| Scraping failures       |            0 |
+| JSON Lines records      |           10 |
+| Total execution time    | 2.31 seconds |
 
 All ten articles were successfully extracted and written to `output/wikipedia_articles.jl`.
 
@@ -302,6 +308,6 @@ This project demonstrates how Go can be used to build a concurrent web crawler a
 
 Colly provides an effective framework for asynchronous webpage retrieval, while goroutines and channels enable concurrent processing of downloaded content.
 
-The benchmark results demonstrate that concurrent extraction improved processing speed by approximately 44.5% compared with sequential extraction, with a relatively small increase in memory usage.
+The benchmark results demonstrate that concurrent extraction improved processing speed by approximately 41.5% compared with sequential extraction, with a relatively small increase in memory usage.
 
 The final application successfully crawled all ten assigned Wikipedia pages, extracted their article text, and generated a structured JSON Lines output file.
